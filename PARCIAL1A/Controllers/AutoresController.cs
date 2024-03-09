@@ -26,11 +26,6 @@ namespace PARCIAL1A.Controllers
         {
             List<Autor> listadoAutor = (from e in _parcial1Adb.Autores select e).ToList();
 
-            if (listadoAutor.Count() == 0)
-            {
-                return NotFound();
-            }
-
             return Ok(listadoAutor);
         }
 
@@ -61,16 +56,10 @@ namespace PARCIAL1A.Controllers
 
         public IActionResult actualizarAutor(int id, [FromBody] Autor modificarAutor)
         {
-            AutorLibro? AutorActual = (from e in _parcial1Adb.AutorLibros where e.AutorId == id select e).FirstOrDefault();
+            bool AutorActual = _parcial1Adb.Autores.Any(a => a.Id == id);
+            if (!AutorActual) { return NotFound(); }
 
-            if (AutorActual == null) { return NotFound(); }
-
-            AutorActual.Orden = AutorActual.Orden;
-            AutorActual.Orden = AutorActual.Orden;
-
-
-
-            _parcial1Adb.Entry(AutorActual).State = EntityState.Modified;
+            _parcial1Adb.Entry(modificarAutor).State = EntityState.Modified;
             _parcial1Adb.SaveChanges();
 
             return Ok(modificarAutor);

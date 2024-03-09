@@ -56,20 +56,15 @@ namespace PARCIAL1A.Controllers
 
         //modificar
         [HttpPut]
-        [Route("Actualizar/{id}")]
+        [Route("Actualizar/{authorId}/{libroId}")]
 
-        public IActionResult actualizarAutorL(int id, [FromBody] AutorLibro modificarAutorL)
+        public IActionResult actualizarAutorL(int authorId, int libroId, [FromBody] AutorLibro modificarAutorL)
         {
-            AutorLibro? AutorlActual = (from e in _parcial1Adb.AutorLibros where e.AutorId == id select e).FirstOrDefault();
+            bool AutorlActual = _parcial1Adb.AutorLibros.Any(al => al.AutorId == authorId && al.LibroId == libroId);
 
-            if (AutorlActual == null) { return NotFound(); }
+            if (!AutorlActual) { return NotFound(); }
 
-            AutorlActual.AutorId = AutorlActual.AutorId;
-            AutorlActual.LibroId = AutorlActual.LibroId;
-
-
-
-            _parcial1Adb.Entry(AutorlActual).State = EntityState.Modified;
+            _parcial1Adb.Entry(modificarAutorL).State = EntityState.Modified;
             _parcial1Adb.SaveChanges();
 
             return Ok(modificarAutorL);
