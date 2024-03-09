@@ -10,8 +10,4 @@ public partial class AutorLibro
     public int LibroId { get; set; }
 
     public int Orden { get; set; }
-
-    public virtual Autor Autor { get; set; } = null!;
-
-    public virtual Libro Libro { get; set; } = null!;
 }

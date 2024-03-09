@@ -14,6 +14,4 @@ public partial class Post
     public DateTime FechaPublicacion { get; set; }
 
     public int AutorId { get; set; }
-
-    public virtual Autor Autor { get; set; } = null!;
 }

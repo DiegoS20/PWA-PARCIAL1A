@@ -34,16 +34,6 @@ public partial class Parcial1aContext : DbContext
             entity.HasKey(e => new { e.AutorId, e.LibroId }).HasName("PK__AutorLib__36D0F7E7540D7E6E");
 
             entity.ToTable("AutorLibro");
-
-            entity.HasOne(d => d.Autor).WithMany(p => p.AutorLibros)
-                .HasForeignKey(d => d.AutorId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__AutorLibr__Autor__3E52440B");
-
-            entity.HasOne(d => d.Libro).WithMany(p => p.AutorLibros)
-                .HasForeignKey(d => d.LibroId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__AutorLibr__Libro__3F466844");
         });
 
         modelBuilder.Entity<Autor>(entity =>
@@ -78,11 +68,6 @@ public partial class Parcial1aContext : DbContext
             entity.Property(e => e.Titulo)
                 .HasMaxLength(50)
                 .IsUnicode(false);
-
-            entity.HasOne(d => d.Autor).WithMany(p => p.Posts)
-                .HasForeignKey(d => d.AutorId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Posts__AutorId__398D8EEE");
         });
 
         OnModelCreatingPartial(modelBuilder);
